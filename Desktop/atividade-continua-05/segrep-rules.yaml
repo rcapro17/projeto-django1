@@ -1,0 +1,10 @@
+rules:
+  - id: insecure-eval
+    languages:
+      - python
+    severity: WARNING
+    patterns:
+      - pattern: |
+          import ast
+          any(isinstance(node, (ast.Exec, ast.Eval)) for node in ast.walk(ast.parse(code)))
+    message: "Avoid the use of eval or exec for security reasons"
